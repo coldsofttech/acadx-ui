@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../config';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.slim.min.js';
@@ -7,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import '../App.css';
 
 function Register() {
-    const [titles] = useState(['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.']);
+    const [titles, setTitles] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         firstName: '',
@@ -33,6 +35,19 @@ function Register() {
         e.preventDefault();
         // Submission logic here
     };
+
+    useEffect(() => {
+        const fetchTitles = async () => {
+            try {
+                const response = await axios.get(`${config.ACADX_API_URL}/titles`);
+                setTitles(response.data);
+            } catch (error) {
+                console.error('Error fetching titles:', error);
+            }
+        };
+
+        fetchTitles();
+    }, []);
 
     return (
         <div className='row justify-content-center'>
