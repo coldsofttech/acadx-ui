@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import config from '../config';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faXTwitter, faMicrosoft, faGithub, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
@@ -21,30 +23,29 @@ function Login() {
     };
 
     useEffect(() => {
-        fetch('/sso-config.json')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 6) { 
-                    throw new Error('The number of SSO items exceeds the limit of 6.')
-                }
-        
+        axios.get(`${config.ACADX_API_URL}/sso-integrations`)
+            .then(response => {
+                const ssoData = response.data;
+
                 const iconMapping = {
-                    faGoogle,
-                    faXTwitter,
-                    faMicrosoft,
-                    faGithub,
-                    faInstagram,
-                    faFacebookF
+                    'faGoogle': faGoogle,
+                    'faXTwitter': faXTwitter,
+                    'faMicrosoft': faMicrosoft,
+                    'faGithub': faGithub,
+                    'faInstagram': faInstagram,
+                    'faFacebookF': faFacebookF
                 };
-        
-                const mappedProviders = data.map(provider => ({
-                    ...provider, 
+
+                const mappedProviders = ssoData.map(provider => ({
+                    ...provider,
                     icon: iconMapping[provider.icon] || faGoogle
                 }));
-        
+
                 setSsoProviders(mappedProviders);
             })
-            .catch(error => console.error('Error loading SSO configuration:', error));
+            .catch(err => {
+                console.error('Error loading SSO configuration:', err)
+            });
     }, []);
 
     return (

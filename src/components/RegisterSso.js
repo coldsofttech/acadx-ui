@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import config from '../config';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faXTwitter, faMicrosoft, faGithub, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
@@ -12,26 +14,29 @@ function RegisterSso() {
     const [ssoProviders, setSsoProviders] = useState([]);
 
     useEffect(() => {
-        fetch('/sso-config.json')
-        .then(response => response.json())
-        .then(data => {
-            const iconMapping = {
-            faGoogle,
-            faXTwitter,
-            faMicrosoft,
-            faGithub,
-            faInstagram,
-            faFacebookF
-            };
+        axios.get(`${config.ACADX_API_URL}/sso-integrations`)
+            .then(response => {
+                const ssoData = response.data;
 
-            const mappedProviders = data.map(provider => ({
-            ...provider,
-            icon: iconMapping[provider.icon] || faGoogle
-            }));
+                const iconMapping = {
+                    'faGoogle': faGoogle,
+                    'faXTwitter': faXTwitter,
+                    'faMicrosoft': faMicrosoft,
+                    'faGithub': faGithub,
+                    'faInstagram': faInstagram,
+                    'faFacebookF': faFacebookF
+                };
 
-            setSsoProviders(mappedProviders);
-        })
-        .catch(error => console.error('Error loading SSO configurations:', error));
+                const mappedProviders = ssoData.map(provider => ({
+                    ...provider,
+                    icon: iconMapping[provider.icon] || faGoogle
+                }));
+
+                setSsoProviders(mappedProviders);
+            })
+            .catch(err => {
+                console.error('Error loading SSO configuration:', err)
+            });
     }, []);
 
     return (
