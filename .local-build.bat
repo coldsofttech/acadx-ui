@@ -28,25 +28,25 @@ for %%f in (%CHECK_FILES_DIRS%) do (
 )
 
 echo Executing clean batch script...
-call .clean.bat
+call bat\.clean.bat
 
 echo Executing install batch script...
-call .install.bat
+call bat\.install.bat
 
 if "%audit%"=="True" (
     echo Executing audit batch script...
-    call .audit-fix.bat
+    call bat\.audit-fix.bat
 )
 
 echo Executing lint batch script...
-call .lint.bat
+call bat\.lint.bat
 
 echo Executing build batch script...
-call .build.bat
+call bat\.build.bat
 
 if "%start%"=="True" (
     echo Executing start batch script...
-    call .start.bat
+    call bat\.start.bat
 )
 
 endlocal
