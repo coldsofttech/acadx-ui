@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faXTwitter, faMicrosoft, faGithub, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
@@ -9,6 +9,36 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import '../App.css';
 
 function Login() {
+    const [ssoProviders, setSsoProviders] = useState([]);
+
+    useEffect(() => {
+        fetch('/sso-config.json')
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 6) { 
+                    throw new Error('The number of SSO items exceeds the limit of 6.')
+                }
+        
+                const iconMapping = {
+                    faGoogle,
+                    faXTwitter,
+                    faMicrosoft,
+                    faGithub,
+                    faInstagram,
+                    faFacebookF
+                };
+        
+                const mappedProviders = data.map(provider => ({
+                    ...provider, 
+                    icon: iconMapping[provider.icon] || faGoogle
+                }));
+        
+                setSsoProviders(mappedProviders);
+            })
+            .catch(error => console.error('Error loading SSO configuration:', error));
+    }, []);
+
+
     return (
         <div className='row justify-content-center'>
             <div className='login-container col-md-4'>
@@ -17,11 +47,11 @@ function Login() {
                     <form>
                         <div className='form-group mb-3' style={{ textAlign: 'left' }}>
                             <label htmlFor='email' className='form-label'>Email Address</label>
-                            <input type='email' className='form-control' id='email' placeholder='Enter email address' />
+                            <input type='email' className='form-control' id='email' name='email' autoComplete='email' placeholder='Enter email address' />
                         </div>
                         <div className='form-group mb-3' style={{ textAlign: 'left' }}>
                             <label htmlFor='password' className='form-label'>Password</label>
-                            <input type='password' className='form-control' id='password' placeholder='Enter password' />
+                            <input type='password' className='form-control' id='password' name='password' autoComplete='current-password' placeholder='Enter password' />
                         </div>
                         <div className='form-group mb-3' style={{ textAlign: 'right' }}>
                             <Link to='/forgot-password' className='text-secondary'>Forgot password?</Link>
@@ -36,24 +66,11 @@ function Login() {
                         <div className='form-group mb-3'>
                             <p>or login with</p>
                             <div className='sso-icons'>
-                                <a href='https://accounts.google.com' target='_blank' rel='noopener noreferrer'>
-                                    <FontAwesomeIcon icon={faGoogle} className='icon' />
-                                </a>
-                                <a href='https://twitter.com/login' target='_blank' rel='noopener noreferrer'>
-                                    <FontAwesomeIcon icon={faXTwitter} className='icon' />
-                                </a>
-                                <a href='https://login.microsoftonline.com' target='_blank' rel='noopener noreferrer'>
-                                    <FontAwesomeIcon icon={faMicrosoft} className='icon' />
-                                </a>
-                                <a href='https://github.com/login' target='_blank' rel='noopener noreferrer'>
-                                    <FontAwesomeIcon icon={faGithub} className='icon' />
-                                </a>
-                                <a href='https://instagram.com/login' target='_blank' rel='noopener noreferrer'>
-                                    <FontAwesomeIcon icon={faInstagram} className='icon' />
-                                </a>
-                                <a href='https://facebook.com/login' target='_blank' rel='noopener noreferrer'>
-                                    <FontAwesomeIcon icon={faFacebookF} className='icon' />
-                                </a>
+                                {ssoProviders.map((provider) => (
+                                    <a key={provider.name} href={provider.redirectUrl} target='_blank' rel='noopener noreferrer'>
+                                        <FontAwesomeIcon icon={provider.icon} className='icon' title={provider.name} />
+                                    </a>
+                                ))}
                             </div>
                         </div>
                     </form>

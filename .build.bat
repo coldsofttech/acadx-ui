@@ -2,7 +2,7 @@
 setlocal
 
 REM Build package
-echo Building package
+echo Building package...
 npm run build
 
 endlocal
