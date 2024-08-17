@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faXTwitter, faMicrosoft, faGithub, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,7 +9,16 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import '../App.css';
 
 function Login() {
+    const navigate = useNavigate();
     const [ssoProviders, setSsoProviders] = useState([]);
+
+    const handleRegister = (isSso) => {
+        if (isSso) {
+            navigate('/register-sso');
+        } else {
+            navigate('/register');
+        }
+    };
 
     useEffect(() => {
         fetch('/sso-config.json')
@@ -38,7 +47,6 @@ function Login() {
             .catch(error => console.error('Error loading SSO configuration:', error));
     }, []);
 
-
     return (
         <div className='row justify-content-center'>
             <div className='login-container col-md-4'>
@@ -47,11 +55,11 @@ function Login() {
                     <form>
                         <div className='form-group mb-3' style={{ textAlign: 'left' }}>
                             <label htmlFor='email' className='form-label'>Email Address</label>
-                            <input type='email' className='form-control' id='email' name='email' autoComplete='email' placeholder='Enter email address' />
+                            <input type='email' className='form-control' id='email' name='email' autoComplete='email' placeholder='Enter email address' required />
                         </div>
                         <div className='form-group mb-3' style={{ textAlign: 'left' }}>
                             <label htmlFor='password' className='form-label'>Password</label>
-                            <input type='password' className='form-control' id='password' name='password' autoComplete='current-password' placeholder='Enter password' />
+                            <input type='password' className='form-control' id='password' name='password' autoComplete='current-password' placeholder='Enter password' required />
                         </div>
                         <div className='form-group mb-3' style={{ textAlign: 'right' }}>
                             <Link to='/forgot-password' className='text-secondary'>Forgot password?</Link>
@@ -60,7 +68,10 @@ function Login() {
                             <button type='submit' className='btn btn-primary btn-block' style={{ width: '100%' }}>Login</button>
                         </div>
                         <div className='form-group mb-3'>
-                            <button type='button' className='btn btn-secondary btn-block' style={{ width: '100%' }}>Register</button>
+                            <button type='button' className='btn btn-secondary btn-block' style={{ width: '100%' }} onClick={() => handleRegister(false)}>Register</button>
+                        </div>
+                        <div className='form-group mb-3'>
+                            <button type='button' className='btn btn-secondary btn-block' style={{ width: '100%' }} onClick={() => handleRegister(true)}>Register with SSO</button>
                         </div>
                         <hr />
                         <div className='form-group mb-3'>

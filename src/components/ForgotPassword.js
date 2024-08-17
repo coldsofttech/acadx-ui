@@ -9,8 +9,8 @@ import '../App.css';
 function ForgotPassword() {
     return (
         <div className='row justify-content-center'>
-            <div className='login-container col-md-4'>
-                <div className='login-box'>
+            <div className='forgot-password-container col-md-4'>
+                <div className='forgot-password-box'>
                     <h3 className='text-center mb-4'>Forgot Password</h3>
                     <form>
                         <div className='form-group mb-3' style={{ textAlign: 'left' }}>
