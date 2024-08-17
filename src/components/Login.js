@@ -52,7 +52,7 @@ function Login() {
         <div className='row justify-content-center'>
             <div className='login-container col-md-4'>
                 <div className='login-box'>
-                    <h3 className='text-center mb-4'>Login</h3>
+                    <h3 className='text-center mb-4 h3-header'>Login</h3>
                     <form>
                         <div className='form-group mb-3' style={{ textAlign: 'left' }}>
                             <label htmlFor='email' className='form-label'>Email Address</label>
@@ -63,7 +63,7 @@ function Login() {
                             <input type='password' className='form-control' id='password' name='password' autoComplete='current-password' placeholder='Enter password' required />
                         </div>
                         <div className='form-group mb-3' style={{ textAlign: 'right' }}>
-                            <Link to='/forgot-password' className='text-secondary'>Forgot password?</Link>
+                            <Link to='/forgot-password' className='text-link'>Forgot password?</Link>
                         </div>
                         <div className='form-group mb-3'>
                             <button type='submit' className='btn btn-primary btn-block' style={{ width: '100%' }}>Login</button>
@@ -71,9 +71,9 @@ function Login() {
                         <div className='form-group mb-3'>
                             <button type='button' className='btn btn-secondary btn-block' style={{ width: '100%' }} onClick={() => handleRegister(false)}>Register</button>
                         </div>
-                        <div className='form-group mb-3'>
+                        {/* <div className='form-group mb-3'>
                             <button type='button' className='btn btn-secondary btn-block' style={{ width: '100%' }} onClick={() => handleRegister(true)}>Register with SSO</button>
-                        </div>
+                        </div> */}
                         <hr />
                         <div className='form-group mb-3'>
                             <p>or login with</p>

@@ -11,7 +11,7 @@ function ForgotPassword() {
         <div className='row justify-content-center'>
             <div className='forgot-password-container col-md-4'>
                 <div className='forgot-password-box'>
-                    <h3 className='text-center mb-4'>Forgot Password</h3>
+                    <h3 className='text-center mb-4 h3-header'>Forgot Password</h3>
                     <form>
                         <div className='form-group mb-3' style={{ textAlign: 'left' }}>
                             <label htmlFor='email' className='form-label'>Email address</label>
@@ -21,7 +21,7 @@ function ForgotPassword() {
                             <button type='submit' className='btn btn-primary btn-block' style={{ width: '100%' }}>Send Reset Link</button>
                         </div>
                         <div className='form-group mb-3' style={{ textAlign: 'right' }}>
-                            <Link to='/login' className='text-secondary'>Remember your password?</Link>
+                            <Link to='/login' className='text-link'>Remember your password?</Link>
                         </div>
                     </form>
                 </div>

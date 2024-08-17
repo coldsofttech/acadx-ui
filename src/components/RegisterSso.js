@@ -43,7 +43,7 @@ function RegisterSso() {
         <div className='row justify-content-center'>
             <div className='login-container col-md-4'>
                 <div className='login-box'>
-                    <h3 className='text-center mb-4'>Register with SSO</h3>
+                    <h3 className='text-center mb-4 h3-header'>Register with SSO</h3>
                     <div className='form-group mb-3'>
                         <p>Select a provider:</p>
                         <div className='sso-icons'>
@@ -54,8 +54,12 @@ function RegisterSso() {
                             ))}
                         </div>
                     </div>
+                    <hr />
                     <div className='form-group mt-3' style={{ textAlign: 'right' }}>
-                        <Link to='/register' className='text-secondary'>Register normally?</Link>
+                        <Link to='/register' className='text-link'>Create a new account?</Link>
+                    </div>
+                    <div className='form-group mt-3' style={{ textAlign: 'right' }}>
+                        <Link to='/login' className='text-link'>Already have an account?</Link>
                     </div>
                 </div>
             </div>

@@ -38,11 +38,13 @@
 }
 
 body {
-  background-image: url('https://example.com/your-background-image.jpg'); /* Replace with a valid image URL */
+  background-color: #748d92;
+  /* background-image: url('https://example.com/your-background-image.jpg'); */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   font-family: 'Arial', sans-serif;
+  color: #212a31;
 }
 
 .login-container {
@@ -53,10 +55,10 @@ body {
 }
 
 .login-box {
-  background: rgba(255, 255, 255, 0.8);
+  background-color: #d3d9d4;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 15px rgba(33, 42, 49, 0.3);
   width: 100%;
   max-width: 400px;
 }
@@ -69,10 +71,10 @@ body {
 }
 
 .forgot-password-box {
-  background: rgba(255, 255, 255, 0.8);
+  background-color: #d3d9d4;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 15px rgba(33, 42, 49, 0.3);
   width: 100%;
   max-width: 400px;
 }
@@ -85,10 +87,10 @@ body {
 }
 
 .register-box {
-  background: rgba(255, 255, 255, 0.8);
+  background-color: #d3d9d4;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 15px rgba(33, 42, 49, 0.3);
   width: 100%;
   max-width: 800px;
 }
@@ -102,10 +104,49 @@ body {
 .sso-icons .icon {
   font-size: 30px;
   cursor: pointer;
-  color: #444;
+  color: #2e3944;
   transition: color 0.3s ease;
 }
 
 .sso-icons .icon:hover {
-  color: #007bff;
+  color: #124e66;
+}
+
+.h3-header {
+  color: #212a31;
+  font-weight: bold;
+}
+
+.form-label {
+  color: #212a31;
+}
+
+.text-link {
+  color: #124e66;
+}
+
+.text-hidden {
+  color: #d3d9d4;
+}
+
+.btn-primary {
+  background-color: #124e66;
+  color: #ffffff;
+  border-color: #124e66;
+}
+
+.btn-primary:hover {
+  background-color: #155c79;
+  border-color: #155c79;
+}
+
+.btn-secondary {
+  background-color: #2e3944;
+  color: #ffffff;
+  border-color: #2e3944;
+}
+
+.btn-secondary:hover {
+  background-color: #425261;
+  border-color: #425261;
 }
