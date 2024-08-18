@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from '../config';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faXTwitter, faMicrosoft, faGithub, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle, faXTwitter, faMicrosoft, faGithub, faInstagram, faFacebookF, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.slim.min.js';
 import '@popperjs/core/dist/umd/popper.min.js';
@@ -33,7 +33,8 @@ function Login() {
                     'faMicrosoft': faMicrosoft,
                     'faGithub': faGithub,
                     'faInstagram': faInstagram,
-                    'faFacebookF': faFacebookF
+                    'faFacebookF': faFacebookF,
+                    'faLinkedinIn': faLinkedinIn
                 };
 
                 const mappedProviders = ssoData.map(provider => ({
