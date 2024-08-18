@@ -79,9 +79,6 @@ function Register() {
                         </div>
                         <hr />
                         <div className='form-group mt-3' style={{ textAlign: 'right' }}>
-                            <Link to='/register-sso' className='text-link'>Register with SSO?</Link>
-                        </div>
-                        <div className='form-group mt-3' style={{ textAlign: 'right' }}>
                             <Link to='/login' className='text-link'>Already have an account?</Link>
                         </div>
                     </form>

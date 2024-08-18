@@ -71,15 +71,12 @@ function Login() {
                         <div className='form-group mb-3'>
                             <button type='button' className='btn btn-secondary btn-block' style={{ width: '100%' }} onClick={() => handleRegister(false)}>Register</button>
                         </div>
-                        {/* <div className='form-group mb-3'>
-                            <button type='button' className='btn btn-secondary btn-block' style={{ width: '100%' }} onClick={() => handleRegister(true)}>Register with SSO</button>
-                        </div> */}
                         <hr />
                         <div className='form-group mb-3'>
                             <p>or login with</p>
                             <div className='sso-icons'>
                                 {ssoProviders.map((provider) => (
-                                    <a key={provider.name} href={provider.redirectUrl} target='_blank' rel='noopener noreferrer'>
+                                    <a key={provider.name} href={provider.redirectUrl} rel='noopener noreferrer'>
                                         <FontAwesomeIcon icon={provider.icon} className='icon' title={provider.name} />
                                     </a>
                                 ))}
