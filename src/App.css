@@ -125,6 +125,10 @@ body {
   color: #124e66;
 }
 
+.text-link:hover {
+  text-decoration: underline;
+}
+
 .text-hidden {
   color: #d3d9d4;
 }
@@ -149,4 +153,40 @@ body {
 .btn-secondary:hover {
   background-color: #425261;
   border-color: #425261;
+}
+
+.btn-outline-danger {
+  background-color: #dc3545;
+  color: #ffffff;
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #c73e4c;
+  border-color: #c73e4c;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.cookie-consent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #d3d9d4;
+  padding: 20px;
+  border-top: 1px solid #212a31;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 15px 15px 15px rgba(33, 42, 49, 0.3);
+}
+
+.cookie-consent-content {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
 }
