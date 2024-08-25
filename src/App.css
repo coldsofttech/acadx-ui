@@ -125,9 +125,9 @@ body {
   color: #124e66;
 }
 
-.text-link:hover {
+/* .text-link:hover {
   text-decoration: underline;
-}
+} */
 
 .text-hidden {
   color: #d3d9d4;
