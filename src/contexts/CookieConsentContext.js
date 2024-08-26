@@ -8,33 +8,42 @@ export const CookieConsentProvider = ({ children }) => {
     const [consent, setConsent] = useState(null);
 
     useEffect(() => {
-        fetch(`${config.ACADX_API_URL}/cookie`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(data => setConsent(data.cookieConsent))
-            .catch(error => console.error('Error fetching cookie consent:', error));
+        const fetchCookie = async () => {
+            try {
+                const url = `${config.ACADX_API_URL}/cookie`;
+                const response = await fetch(url, { credentials: 'include' });
+
+                if (!response.ok) {
+                    console.error('Failed to fetch cookie.');
+                }
+
+                const result = await response.json();
+                setConsent(result.value);
+            } catch (error) {
+                console.error(error.message);
+            }
+        };
+
+        fetchCookie();
     }, []);
 
-    const handleConsent = (type) => {
-        fetch(`${config.ACADX_API_URL}/cookie`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ preference: type }),
-            credentials: 'include'
-        })
-            .then(response => {
-                if (response.ok) {
-                    setConsent(type);
-                }
-            })
-            .catch(error => console.error('Error setting cookie:', error));
+    const handleConsent = async (type) => {
+        try {
+            const params = new URLSearchParams({
+                preference: type
+            });
+            const url = `${config.ACADX_API_URL}/cookie?${params.toString()}`;
+            const response = await fetch(url, { method: 'POST', credentials: 'include' });
+
+            if (!response.ok) {
+                console.error('Failed to set cookie.');
+            }
+
+            const result = await response.json();
+            setConsent(result.value);
+        } catch (error) {
+            console.error(error.message);
+        }
     };
 
     return (

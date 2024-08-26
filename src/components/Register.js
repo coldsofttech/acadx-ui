@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import config from '../config';
+import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.slim.min.js';
 import '@popperjs/core/dist/umd/popper.min.js';
@@ -7,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import '../App.css';
 
 function Register() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -16,6 +19,7 @@ function Register() {
         confirmPassword: '',
         termsAccepted: false
     });
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -25,9 +29,46 @@ function Register() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const validatePassword = async (e) => {
+        if (formData.password !== formData.confirmPassword) {
+            setErrorMessage('Password and Confirm Password do not match.');
+            return false;
+        }
+
+        return true;
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Submission logic here
+        const formValidation = await validatePassword();
+
+        if (formValidation) {
+            try {
+                const body = {
+                    first_name: formData.firstName,
+                    last_name: formData.lastName,
+                    dob: formData.dob,
+                    email: formData.email,
+                    password: formData.password
+                };
+                const url = `${config.ACADX_API_URL}/users`;
+                const response = await fetch(url, { 
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) 
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.error || 'Failed to create new user.');
+                    return;
+                }
+    
+                const result = await response.json();
+                Cookies.set('user_id', result.id, { expires: 1 });
+                navigate('/dashboard');
+            } catch (error) {
+                setErrorMessage(error.message || 'An unexpected error occurred. Please try again later.');
+            }
+        }
     };
 
     return (
@@ -35,6 +76,11 @@ function Register() {
             <div className='register-container col-md-10 col-lg-8'>
                 <div className='register-box'>
                     <h3 className='text-center mb-4 h3-header'>Register</h3>
+                    {errorMessage && (
+                        <div className='alert alert-danger' role='alert'>
+                            {errorMessage}
+                        </div>
+                    )}
                     <form onSubmit={handleSubmit}>
                         <div className='row'>
                             <div className='col-md-6'>
